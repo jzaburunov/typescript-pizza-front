@@ -1,0 +1,12 @@
+.card-blockquote > img {
+  width: 100%;
+}
+
+.card {
+  margin-bottom: 1em;
+}
+
+.card-image {
+  width: 300px;
+  height: 200px;
+}

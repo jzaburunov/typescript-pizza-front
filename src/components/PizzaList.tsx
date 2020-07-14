@@ -24,7 +24,7 @@ class _PizzaList extends Component<PizzaListInterface> {
 
   render() {
     const pizzas = this.renderList();
-    return <ul>{pizzas}</ul>;
+    return <div className="row">{pizzas}</div>;
   }
 }
 
