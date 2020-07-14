@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchPizzas as fetchPizzasAction, Pizza } from "../actions";
 import { StoreState } from "../reducers";
+import { Pizza as PizzaComponent } from "./Pizza";
 
 interface PizzaListInterface {
   fetchPizzas(): any; // not very cool
@@ -16,7 +17,7 @@ class _PizzaList extends Component<PizzaListInterface> {
 
   renderList(): JSX.Element[] {
     const pizzas = this.props.pizzas.map((pizza: Pizza) => {
-      return <li key={pizza._id}>{pizza.name}</li>;
+      return <PizzaComponent pizza={pizza} />;
     });
     return pizzas;
   }
