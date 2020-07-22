@@ -7,7 +7,7 @@ export const SidebarMenu: React.FC<{ pathname: string }> = ({ pathname }) => {
   return (
     <Menu
       style={{ width: "100%", marginTop: 24 }}
-      theme="light"
+      theme="dark"
       selectedKeys={[pathname]}
     >
       <Menu.Item key="/menu">

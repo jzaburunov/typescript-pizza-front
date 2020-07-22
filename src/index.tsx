@@ -10,7 +10,8 @@ import { BasicProps } from "antd/lib/layout/layout";
 import { reducers } from "./reducers";
 import { SidebarMenu } from "./components/SidebarMenu";
 import { BrowserRouter as Router } from "react-router-dom";
-import 'antd/dist/antd.css';
+import "antd/dist/antd.css";
+import "./index.css";
 
 const store = createStore(reducers, applyMiddleware(thunk));
 const { Content, Sider } = Layout;
@@ -31,6 +32,10 @@ class App extends Component<AppInterface, AppStateInterface> {
     };
   }
 
+  setCollapsed = (value: boolean) => {
+    this.setState({ collapsed: value });
+  };
+
   render() {
     // Add sidebar
     const { collapsed } = this.state;
@@ -45,20 +50,21 @@ class App extends Component<AppInterface, AppStateInterface> {
                 ? `Navigation__header Navigation__header--collapsed`
                 : `Navigation__header`
             }
+            onClick={(): void => this.setCollapsed(!collapsed)}
           >
             {/* TODO */}
-            {/* <img
+            <img
               height={collapsed ? 32 : 84}
-              src={collapsed ? logoSmall : logoBig}
+              src="https://vignette.wikia.nocookie.net/oddsquad/images/f/f4/Pizza.png/revision/latest?cb=20170203223737"
               alt=""
-            /> */}
+            />
           </div>
           <SidebarMenu pathname={pathname} />
         </Sider>
         <Layout>
           {/* <AppHeader
             collapsed={collapsed}
-            onCollapse={(): void => setCollapsed(!collapsed)}
+            onCollapse={(): void => this.setCollapsed(!collapsed)}
           /> */}
           <Content className="app__content">{children}</Content>
         </Layout>
