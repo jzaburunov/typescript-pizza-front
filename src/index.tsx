@@ -1,4 +1,4 @@
-import React, { Component, ReactElement } from "react";
+import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
@@ -6,8 +6,11 @@ import thunk from "redux-thunk";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { PizzaList } from "./components/PizzaList";
 import { Layout } from "antd";
-import { reducers } from "./reducers";
 import { BasicProps } from "antd/lib/layout/layout";
+import { reducers } from "./reducers";
+import { SidebarMenu } from "./components/SidebarMenu";
+import { BrowserRouter as Router } from "react-router-dom";
+import 'antd/dist/antd.css';
 
 const store = createStore(reducers, applyMiddleware(thunk));
 const { Content, Sider } = Layout;
@@ -16,8 +19,12 @@ interface AppStateInterface {
   collapsed: boolean;
 }
 
-class App extends Component<BasicProps, AppStateInterface> {
-  constructor(props: BasicProps) {
+interface AppInterface extends BasicProps {
+  pathname: string;
+}
+
+class App extends Component<AppInterface, AppStateInterface> {
+  constructor(props: AppInterface) {
     super(props);
     this.state = {
       collapsed: false,
@@ -27,12 +34,9 @@ class App extends Component<BasicProps, AppStateInterface> {
   render() {
     // Add sidebar
     const { collapsed } = this.state;
-    const { children } = this.props;
+    const { children, pathname } = this.props;
 
     return (
-      // <div className="container">
-      //   <PizzaList />
-      // </div>
       <Layout style={{ minHeight: "100vh" }}>
         <Sider className="app__sider" theme="dark" collapsed={collapsed}>
           <div
@@ -49,7 +53,7 @@ class App extends Component<BasicProps, AppStateInterface> {
               alt=""
             /> */}
           </div>
-          {/* <SidebarMenu pathname={pathname} /> */}
+          <SidebarMenu pathname={pathname} />
         </Sider>
         <Layout>
           {/* <AppHeader
@@ -65,9 +69,11 @@ class App extends Component<BasicProps, AppStateInterface> {
 
 ReactDOM.render(
   <Provider store={store}>
-    <App>
-      <PizzaList />
-    </App>
+    <Router>
+      <App pathname="">
+        <PizzaList />
+      </App>
+    </Router>
   </Provider>,
   document.querySelector("#root")
 );
