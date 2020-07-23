@@ -1,9 +1,9 @@
 import { ActionTypes } from "../actions/types";
 import { AppActions } from "../actions";
 
-interface CartPizza {
-  _id: string,
-  quantity: number
+export interface CartPizza {
+  _id: string;
+  quantity: number;
 }
 
 export const cartReducer = (state: CartPizza[] = [], action: AppActions) => {
