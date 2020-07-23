@@ -15,6 +15,11 @@ export const SidebarMenu: React.FC<{ pathname: string }> = ({ pathname }) => {
         <span>Menu</span>
         <Link to="/menu" />
       </Menu.Item>
+      <Menu.Item key="/cart">
+        {/* <Icon type="menu" /> */}
+        <span>Cart</span>
+        <Link to="/cart" />
+      </Menu.Item>
     </Menu>
   );
 };
