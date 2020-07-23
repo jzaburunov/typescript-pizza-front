@@ -13,8 +13,9 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "antd/dist/antd.css";
 import "./index.css";
 import { Cart } from "./components/Cart";
+import createLogger from "redux-logger";
 
-const store = createStore(reducers, applyMiddleware(thunk));
+const store = createStore(reducers, applyMiddleware(thunk, createLogger));
 const { Content, Sider } = Layout;
 
 interface AppStateInterface {
