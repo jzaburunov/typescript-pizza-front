@@ -57,7 +57,6 @@ const App: React.FC<AppInterface> = (props) => {
       </Layout>
     );
   }
-}
 
 ReactDOM.render(
   <Provider store={store}>
