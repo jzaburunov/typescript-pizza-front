@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import ReactDOM from "react-dom";
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
@@ -24,22 +24,9 @@ interface AppInterface extends BasicProps {
   pathname: string;
 }
 
-class App extends Component<AppInterface, AppStateInterface> {
-  constructor(props: AppInterface) {
-    super(props);
-    this.state = {
-      collapsed: false,
-    };
-  }
-
-  setCollapsed = (value: boolean) => {
-    this.setState({ collapsed: value });
-  };
-
-  render() {
-    // Add sidebar
-    const { collapsed } = this.state;
-    const { children, pathname } = this.props;
+const App: React.FC<AppInterface> = (props) => {
+    const [ collapsed, setCollapsed ] = useState(false);
+    const { children, pathname } = props;
 
     return (
       <Layout style={{ minHeight: "100vh" }}>
@@ -50,9 +37,8 @@ class App extends Component<AppInterface, AppStateInterface> {
                 ? `Navigation__header Navigation__header--collapsed`
                 : `Navigation__header`
             }
-            onClick={(): void => this.setCollapsed(!collapsed)}
+            onClick={(): void => setCollapsed(!collapsed)}
           >
-            {/* TODO */}
             <img
               height={collapsed ? 32 : 84}
               src="https://vignette.wikia.nocookie.net/oddsquad/images/f/f4/Pizza.png/revision/latest?cb=20170203223737"
