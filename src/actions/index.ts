@@ -21,7 +21,7 @@ export interface FetchPizzasAction {
   payload: Pizza[];
 }
 
-export const fetchPizzas = () => {
+export const fetchPizzas = (): Function => {
   return async (dispatch: Dispatch) => {
     const resp = await axios.get<Pizza[]>("http://localhost:4000/pizza/all");
 
@@ -31,3 +31,22 @@ export const fetchPizzas = () => {
     });
   };
 };
+
+export interface AddToCartAction {
+  type: ActionTypes.addToCart;
+  payload: Pizza;
+}
+
+export const addToCart = (pizza: Pizza): Function => {
+  return async (dispatch: Dispatch) => {
+    // use axios
+    const payload = pizza;
+    // Dispatch
+    dispatch<AddToCartAction>({
+      type: ActionTypes.addToCart,
+      payload,
+    });
+  };
+};
+
+export type AppActions = AddToCartAction | FetchPizzasAction;

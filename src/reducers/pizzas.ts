@@ -1,4 +1,4 @@
-import { FetchPizzasAction, Pizza } from "../actions";
+import { AppActions, Pizza } from "../actions";
 import { ActionTypes } from "../actions/types";
 
 const defaultState = [
@@ -27,7 +27,7 @@ const defaultState = [
 
 export const pizzasReducer = (
   state: Pizza[] = defaultState,
-  action: FetchPizzasAction
+  action: AppActions
 ) => {
   switch (action.type) {
     case ActionTypes.setPizzas:

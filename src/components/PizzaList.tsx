@@ -1,11 +1,16 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchPizzas as fetchPizzasAction, Pizza } from "../actions";
+import {
+  fetchPizzas as fetchPizzasAction,
+  Pizza,
+  addToCart as addPizzaAction,
+} from "../actions";
 import { StoreState } from "../reducers";
 import { Pizza as PizzaComponent } from "./Pizza";
 
 interface PizzaListInterface {
-  fetchPizzas(): any; // not very cool
+  fetchPizzas(): Function;
+  addPizza(pizza: Pizza): Function;
   pizzas: Pizza[];
 }
 
@@ -16,8 +21,9 @@ class _PizzaList extends Component<PizzaListInterface> {
   }
 
   renderList(): JSX.Element[] {
+    const { addPizza } = this.props;
     const pizzas = this.props.pizzas.map((pizza: Pizza) => {
-      return <PizzaComponent pizza={pizza} />;
+      return <PizzaComponent pizza={pizza} addPizza={addPizza} />;
     });
     return pizzas;
   }
@@ -36,5 +42,6 @@ export const PizzaList = connect(
   },
   {
     fetchPizzas: fetchPizzasAction,
+    addPizza: addPizzaAction,
   }
 )(_PizzaList);
