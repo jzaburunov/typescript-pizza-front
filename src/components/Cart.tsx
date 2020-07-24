@@ -9,11 +9,13 @@ import { TableHeaderProps } from "react-virtualized";
 import { nameFormatter, subtotalFormatter } from "./utils";
 import { CartGrid } from "./CartGrid";
 import { TableRowInterface } from "./CartGrid";
+import "./Cart.css";
 
 interface CartInterface {
   cart: CartPizza[];
   cartPizzas: Map<string, Pizza | undefined>;
   height: number;
+  cartTotal: number;
 }
 
 interface CartStateInterface {
@@ -40,18 +42,14 @@ class _Cart extends React.Component<CartInterface, CartStateInterface> {
   };
 
   render() {
-    const { height } = this.props;
+    const { height, cartTotal } = this.props;
     const { rows } = this.state;
 
-    // TODO Render subtotal
-    // TODO Render total
-
-    // const pizzasInCart = cart.map((p) => (
-    //   <li key={p._id}>{cartPizzas.get(p._id)?.name}</li>
-    // ));
-
     return (
-      <CartGrid rowGetter={this.rowGetter} length={rows.length}/>
+      <React.Fragment>
+        <CartGrid rowGetter={this.rowGetter} length={rows.length} />
+        <div className="cart-total">Total: ${cartTotal.toFixed(2)}</div>
+      </React.Fragment>
     );
   }
 }
@@ -67,9 +65,15 @@ function mapStateToProps(state: StoreState) {
     }
     return res;
   }, new Map<string, Pizza>());
+
+  const cartTotal = cart.reduce(
+    (agr, p) => agr + (cartPizzas.get(p._id)?.price || 0),
+    0
+  );
   return {
     cart,
     cartPizzas,
+    cartTotal,
   };
 }
 

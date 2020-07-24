@@ -26,8 +26,6 @@ export const CartGrid: React.FC<CartGridInterface> = (props) => {
           headerHeight={50}
           height={1000}
           autoHeight
-          // isScrolling={isScrolling}
-          // scrollTop={scrollTop}
           rowGetter={rowGetter}
           rowHeight={100}
           rowCount={length}
@@ -44,9 +42,6 @@ export const CartGrid: React.FC<CartGridInterface> = (props) => {
             };
             return styles;
           }}
-          // gridStyle={{
-          //   paddingTop: fixHeader ? 50 : 0,
-          // }}
         >
           <Column
             label="Pizza"

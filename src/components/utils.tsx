@@ -6,5 +6,5 @@ export const nameFormatter: React.FC<TableCellProps> = ({ cellData }) => (
 );
 
 export const subtotalFormatter: React.FC<TableCellProps> = ({ cellData }) => (
-  <span>{cellData}</span>
+  <span>${cellData}</span>
 );
