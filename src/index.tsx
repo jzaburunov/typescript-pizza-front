@@ -11,6 +11,7 @@ import { reducers } from "./reducers";
 import { SidebarMenu } from "./components/SidebarMenu";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "antd/dist/antd.css";
+import "react-virtualized/styles.css";
 import "./index.css";
 import { Cart } from "./components/Cart";
 import createLogger from "redux-logger";
