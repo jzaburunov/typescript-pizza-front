@@ -6,7 +6,7 @@ import { CartPizza } from "../reducers/cart";
 import { Pizza } from "../actions";
 import { Button } from "antd";
 import { TableHeaderProps } from "react-virtualized";
-import { nameFormatter } from "./utils";
+import { nameFormatter, subtotalFormatter } from "./utils";
 
 interface CartInterface {
   cart: CartPizza[];
@@ -16,6 +16,14 @@ interface CartInterface {
 
 interface CartStateInterface {
   rows: CartPizza[];
+}
+
+interface TableRowInterface {
+  _id: string;
+  quantity: number;
+  price: number | undefined;
+  name: string | undefined;
+  subtotal: number;
 }
 
 class _Cart extends React.Component<CartInterface, CartStateInterface> {
@@ -28,17 +36,22 @@ class _Cart extends React.Component<CartInterface, CartStateInterface> {
     };
   }
 
-  headerRenderer = ({ label }: TableHeaderProps) => <div>{label}</div>;
-
-  rowGetter = ({ index }: { index: number }): CartPizza => {
+  rowGetter = ({ index }: { index: number }): TableRowInterface => {
     const { rows } = this.state;
-    return rows[index];
+    const { cartPizzas } = this.props;
+    const pizza = rows[index];
+    const name = cartPizzas.get(pizza._id)?.name;
+    const price = cartPizzas.get(pizza._id)?.price;
+    return { ...rows[index], name, price };
   };
 
   render() {
     const { height } = this.props;
     const { rows } = this.state;
-    // TODO Render a list pizzas
+
+    // TODO Render subtotal
+    // TODO Render total
+
     // const pizzasInCart = cart.map((p) => (
     //   <li key={p._id}>{cartPizzas.get(p._id)?.name}</li>
     // ));
@@ -47,7 +60,7 @@ class _Cart extends React.Component<CartInterface, CartStateInterface> {
       <AutoSizer disableHeight>
         {({ width }) => (
           <Table
-            headerHeight={150}
+            headerHeight={50}
             height={1000}
             autoHeight
             // isScrolling={isScrolling}
@@ -56,7 +69,6 @@ class _Cart extends React.Component<CartInterface, CartStateInterface> {
             rowHeight={100}
             rowCount={rows.length}
             width={width}
-            className="ambassadors-grid"
             headerStyle={{
               fontSize: 12,
               fontWeight: 600,
@@ -67,15 +79,6 @@ class _Cart extends React.Component<CartInterface, CartStateInterface> {
                 fontWeight: "normal",
                 borderBottom: "1px solid #e2ebf5",
               };
-              // if (index < 0) {
-              //   styles = {
-              //     ...styles,
-              //     position: fixHeader ? "fixed" : "static",
-              //     backgroundColor: "#fff",
-              //     zIndex: 10,
-              //     top: 0,
-              //   };
-              // }
               return styles;
             }}
             // gridStyle={{
@@ -87,7 +90,6 @@ class _Cart extends React.Component<CartInterface, CartStateInterface> {
               dataKey="name"
               cellRenderer={nameFormatter}
               width={240}
-              // headerRenderer={this.headerRenderer}
               flexGrow={1}
             />
             <Column
@@ -95,22 +97,19 @@ class _Cart extends React.Component<CartInterface, CartStateInterface> {
               dataKey="price"
               cellRenderer={nameFormatter}
               width={210}
-              // // headerRenderer={this.headerRenderer}
             />
             <Column
               label="Quantity"
               dataKey="quantity"
               cellRenderer={nameFormatter}
               width={240}
-              // headerRenderer={this.headerRenderer}
             />
-            {/* <Column
-                label="Subtotal"
-                dataKey="subtotal"
-                cellRenderer={LeadStatusFormatter}
-                width={230}
-                headerRenderer={this.headerRenderer}
-              /> */}
+            <Column
+              label="Subtotal"
+              dataKey="subtotal"
+              cellRenderer={subtotalFormatter}
+              width={230}
+            />
             {/* <Column
                 label=""
                 dataKey="delete"
