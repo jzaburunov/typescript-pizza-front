@@ -1,3 +1,13 @@
+// TODO:
+// v Menu
+// v sidebar
+// * Cart
+//  Login
+//  Additionally:
+//   Pagination
+//   Description page
+//   orders and Check out
+
 import React from "react";
 import ReactDOM from "react-dom";
 import { createStore, applyMiddleware } from "redux";
@@ -13,13 +23,16 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "antd/dist/antd.css";
 import "react-virtualized/styles.css";
 import "./index.css";
+import { SidebarMenu } from "./components/SidebarMenu";
 
 const store = createStore(reducers, applyMiddleware(thunk, createLogger));
 
+// TODO Add login page
+// Protect other pages if user is not authenticated 
 ReactDOM.render(
   <Provider store={store}>
     <Router>
-      <App pathname="">
+      <App pathname="" sidebar={SidebarMenu}>
         <Switch>
           <Route path="/menu" component={PizzaList} />
           <Route path="/cart" component={Cart} />

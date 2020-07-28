@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { BasicProps } from "antd/lib/layout/layout";
-import { SidebarMenu } from "./SidebarMenu";
 import { Layout } from "antd";
 const { Content, Sider } = Layout;
 
 interface AppInterface extends BasicProps {
   pathname: string;
+  sidebar: React.ReactType;
 }
 
 export const App: React.FC<AppInterface> = (props) => {
   const [collapsed, setCollapsed] = useState(false);
-  const { children, pathname } = props;
+  const { children, pathname, sidebar: SidebarMenu } = props;
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
