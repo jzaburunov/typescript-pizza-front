@@ -1,27 +1,23 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { PizzaList } from "./components/PizzaList";
 import { Layout } from "antd";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import createLogger from "redux-logger";
 import { BasicProps } from "antd/lib/layout/layout";
 import { reducers } from "./reducers";
+import { PizzaList } from "./components/PizzaList";
 import { SidebarMenu } from "./components/SidebarMenu";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Cart } from "./components/Cart";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "antd/dist/antd.css";
 import "react-virtualized/styles.css";
 import "./index.css";
-import { Cart } from "./components/Cart";
-import createLogger from "redux-logger";
 
 const store = createStore(reducers, applyMiddleware(thunk, createLogger));
 const { Content, Sider } = Layout;
-
-interface AppStateInterface {
-  collapsed: boolean;
-}
 
 interface AppInterface extends BasicProps {
   pathname: string;

@@ -8,20 +8,17 @@ interface PizzaInterface {
   addPizza(pizza: PizzaDataInterface): Function; // Because thunk
 }
 
-export const Pizza: React.FC<PizzaInterface> = (props) => {
-  const {
-    pizza: { name, description, image },
-    pizza,
-    addPizza,
-  } = props;
-  return (
-    <div className="card col-4">
-      <img className="card-img-top card-image" src={image} alt={name} />
-      <div className="card-body">
-        <h5 className="card-title">{name}</h5>
-        <p className="card-text">{description}</p>
-        <Button onClick={() => addPizza(pizza)}>Order</Button>
-      </div>
+export const Pizza: React.FC<PizzaInterface> = ({
+  pizza: { name, description, image },
+  pizza,
+  addPizza,
+}) => (
+  <div className="card col-4">
+    <img className="card-img-top card-image" src={image} alt={name} />
+    <div className="card-body">
+      <h5 className="card-title">{name}</h5>
+      <p className="card-text">{description}</p>
+      <Button onClick={() => addPizza(pizza)}>Order</Button>
     </div>
-  );
-};
+  </div>
+);

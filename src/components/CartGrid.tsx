@@ -1,7 +1,6 @@
 import React, { CSSProperties } from "react";
 import { AutoSizer, Table, Column } from "react-virtualized";
 import { nameFormatter, subtotalFormatter } from "./utils";
-import { CartPizza } from "../reducers/cart";
 
 export interface TableRowInterface {
   _id: string;

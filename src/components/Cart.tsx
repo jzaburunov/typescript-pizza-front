@@ -1,12 +1,8 @@
-import React, { CSSProperties } from "react";
+import React from "react";
 import { connect } from "react-redux";
-import { AutoSizer, Table, Column } from "react-virtualized";
 import { StoreState } from "../reducers";
 import { CartPizza } from "../reducers/cart";
 import { Pizza } from "../actions";
-import { Button } from "antd";
-import { TableHeaderProps } from "react-virtualized";
-import { nameFormatter, subtotalFormatter } from "./utils";
 import { CartGrid } from "./CartGrid";
 import { TableRowInterface } from "./CartGrid";
 import "./Cart.css";
@@ -42,7 +38,7 @@ class _Cart extends React.Component<CartInterface, CartStateInterface> {
   };
 
   render() {
-    const { height, cartTotal } = this.props;
+    const { cartTotal } = this.props;
     const { rows } = this.state;
 
     return (
@@ -55,7 +51,8 @@ class _Cart extends React.Component<CartInterface, CartStateInterface> {
 }
 
 function mapStateToProps(state: StoreState) {
-  // TODO Use selector to select pizzas from store by _id
+  // TODO Use selector to select pizzas from store by _id and build
+  // needed structure instantly
   const { cart, pizzas } = state;
 
   const cartPizzas = cart.reduce((res: Map<string, Pizza>, current) => {

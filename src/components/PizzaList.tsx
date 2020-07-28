@@ -20,20 +20,19 @@ class _PizzaList extends Component<PizzaListInterface> {
     fetchPizzas();
   }
 
-  renderList(): JSX.Element[] {
-    const { addPizza } = this.props;
-    const pizzas = this.props.pizzas.map((pizza: Pizza) => {
-      return <PizzaComponent pizza={pizza} addPizza={addPizza} />;
-    });
-    return pizzas;
-  }
-
   render() {
-    const pizzas = this.renderList();
-    return <div className="row">{pizzas}</div>;
+    const { addPizza, pizzas } = this.props;
+    return (
+      <div className="row">
+        {pizzas.map((pizza: Pizza) => {
+          return <PizzaComponent pizza={pizza} addPizza={addPizza} />;
+        })}
+      </div>
+    );
   }
 }
 
+// TODO Check if return type is required
 export const PizzaList = connect(
   ({ pizzas }: StoreState): { pizzas: Pizza[] } => {
     return {
