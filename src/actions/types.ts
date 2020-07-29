@@ -1,4 +1,5 @@
 export enum ActionTypes {
   setPizzas,
-  addToCart
+  addToCart,
+  authSuccess
 };

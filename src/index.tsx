@@ -19,6 +19,7 @@ import { reducers } from "./reducers";
 import { PizzaList } from "./components/PizzaList";
 import { Cart } from "./components/Cart";
 import { App } from "./components/App";
+import { Login } from "./components/Login";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "antd/dist/antd.css";
 import "react-virtualized/styles.css";
@@ -34,6 +35,7 @@ ReactDOM.render(
     <Router>
       <App pathname="" sidebar={SidebarMenu}>
         <Switch>
+          <Route path="/login" component={Login} />
           <Route path="/menu" component={PizzaList} />
           <Route path="/cart" component={Cart} />
         </Switch>
