@@ -3,6 +3,7 @@
 // v sidebar
 // v Cart
 // v Login
+//    logout
 //    register
 // *   protect routes
 //  Additionally:
@@ -27,6 +28,7 @@ import "antd/dist/antd.css";
 import "react-virtualized/styles.css";
 import "./index.css";
 import { SidebarMenu } from "./components/SidebarMenu";
+import { PrivateRoute } from "./components/PrivateRoute";
 
 const store = createStore(reducers, applyMiddleware(thunk, createLogger));
 
@@ -38,8 +40,8 @@ ReactDOM.render(
       <App pathname="" sidebar={SidebarMenu}>
         <Switch>
           <Route path="/login" component={Login} />
-          <Route path="/menu" component={PizzaList} />
-          <Route path="/cart" component={Cart} />
+          <PrivateRoute path="/menu" component={PizzaList} />
+          <PrivateRoute path="/cart" component={Cart} />
         </Switch>
       </App>
     </Router>

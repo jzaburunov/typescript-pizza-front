@@ -28,7 +28,7 @@ export const login = (props: LoginDataInterface): Function => {
 
     console.log("Login response: ", res);
     const resData = res.data;
-    authenticateUser(resData);
+    Auth.authenticateUser(resData);
     if (resData.success) {
       // TODO Check this
       dispatch<LoginAction>({
@@ -40,10 +40,17 @@ export const login = (props: LoginDataInterface): Function => {
 };
 
 // TODO fix any type
-function authenticateUser(json: any) {
-  window.localStorage.setItem("authToken", json.token);
-  window.localStorage.setItem("username", json.user.username);
-  if (json.user.roles && json.user.roles.length > 0) {
-    window.localStorage.setItem("roles", json.user.roles);
+export class Auth {
+  static authenticateUser(json: any) {
+    window.localStorage.setItem("authToken", json.token);
+    window.localStorage.setItem("username", json.user.username);
+    if (json.user.roles && json.user.roles.length > 0) {
+      window.localStorage.setItem("roles", json.user.roles);
+    }
+  }
+
+  static isUserAuthenticated() {
+    return window.localStorage.getItem("authToken") !== null;
   }
 }
+// TODO fix any type
