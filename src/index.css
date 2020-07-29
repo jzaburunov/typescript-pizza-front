@@ -1,3 +1,11 @@
 .Navigation__header {
-  cursor: pointer
+  cursor: pointer;
+}
+
+.app__header__right {
+  position: absolute;
+  top: 0;
+  right: 12px;
+  background: #fff;
+  height: 63px;
 }

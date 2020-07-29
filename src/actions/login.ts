@@ -13,6 +13,10 @@ export interface LoginAction {
   type: ActionTypes.authSuccess;
 }
 
+export interface LogoutAction {
+  type: ActionTypes.logout;
+}
+
 export interface AuthRespInterface {
   success: boolean;
 }
@@ -39,8 +43,21 @@ export const login = (props: LoginDataInterface): Function => {
   };
 };
 
+export const logout = (): Function => {
+  return async (dispatch: Dispatch) => {
+    Auth.deauthenticateUser();
+    dispatch<LogoutAction>({
+      type: ActionTypes.logout,
+    });
+  };
+};
+
 // TODO fix any type
 export class Auth {
+  static deauthenticateUser() {
+    window.localStorage.clear();
+  }
+
   static authenticateUser(json: any) {
     window.localStorage.setItem("authToken", json.token);
     window.localStorage.setItem("username", json.user.username);
