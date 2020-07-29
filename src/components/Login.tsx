@@ -77,12 +77,12 @@ class _Login extends React.Component<LoginInterface> {
 const validate = (values: LoginDataInterface) => {
   // TODO see if it could be simplified, wo need of concrete values
   const errors: LoginDataInterface = {
-    login: "",
+    email: "",
     password: "",
   };
 
-  if (!values.login) {
-    errors.login = "Enter an login";
+  if (!values.email) {
+    errors.email = "Enter an login";
   }
 
   if (!values.password || values.password.length < 6) {

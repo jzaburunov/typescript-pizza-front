@@ -1,8 +1,10 @@
 // TODO:
 // v Menu
 // v sidebar
-// * Cart
-//  Login
+// v Cart
+// v Login
+//    register
+// *   protect routes
 //  Additionally:
 //   Pagination
 //   Description page
@@ -29,7 +31,7 @@ import { SidebarMenu } from "./components/SidebarMenu";
 const store = createStore(reducers, applyMiddleware(thunk, createLogger));
 
 // TODO Add login page
-// Protect other pages if user is not authenticated 
+// Protect other pages if user is not authenticated
 ReactDOM.render(
   <Provider store={store}>
     <Router>
