@@ -6,7 +6,7 @@ import { login as loginAction, LoginDataInterface } from "../actions/login";
 import { renderField } from "./utils";
 import { StoreState } from "../reducers";
 
-interface LoginInterface extends InjectedFormProps<LoginDataInterface> {
+export interface LoginInterface extends InjectedFormProps<LoginDataInterface> {
   login(props: LoginDataInterface): Function;
   errMsg: {};
 }
@@ -37,7 +37,7 @@ class _Login extends React.Component<LoginInterface> {
                 label="Email"
                 name="email"
                 component={renderField}
-                placeholder="tyler.newman@jumperco.com"
+                placeholder="tyler.newman@pizza.com"
                 type="email"
               />
               <Field
@@ -74,8 +74,9 @@ class _Login extends React.Component<LoginInterface> {
   }
 }
 
-const validate = (values: { login: string; password: string }) => {
-  const errors: { login: string; password: string } = {
+const validate = (values: LoginDataInterface) => {
+  // TODO see if it could be simplified, wo need of concrete values
+  const errors: LoginDataInterface = {
     login: "",
     password: "",
   };
