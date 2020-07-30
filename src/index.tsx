@@ -3,9 +3,9 @@
 // v sidebar
 // v Cart
 // v Login
-//    logout
+// v   logout
+// v   protect routes
 //    register
-// *   protect routes
 //  Additionally:
 //   Pagination
 //   Description page
@@ -32,7 +32,6 @@ import { PrivateRoute } from "./components/PrivateRoute";
 
 const store = createStore(reducers, applyMiddleware(thunk, createLogger));
 
-// TODO Add login page
 // Protect other pages if user is not authenticated
 ReactDOM.render(
   <Provider store={store}>

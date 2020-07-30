@@ -3,6 +3,11 @@ import { connect } from "react-redux";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { BasicProps } from "antd/lib/layout/layout";
 import { Layout, Popover } from "antd";
+import {
+  UserOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+} from "@ant-design/icons";
 import { logout as logoutAction } from "../actions/login";
 import { StoreState } from "../reducers";
 
@@ -62,9 +67,8 @@ const _App: React.FC<AppInterface> = (props) => {
           <span
             className="ant-pro-global-header-trigger"
             onClick={(): void => setCollapsed(!collapsed)}
-            style={{ color: "white" }}
           >
-            collapse
+            {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
           </span>
           <div className="app__header__right">
             <Popover
@@ -78,7 +82,7 @@ const _App: React.FC<AppInterface> = (props) => {
                 className="ant-pro-global-header-right-item"
                 onClick={(): void => setVisible(true)}
               >
-                User Icon
+                <UserOutlined />
               </div>
             </Popover>
           </div>

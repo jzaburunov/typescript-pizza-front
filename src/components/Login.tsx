@@ -69,12 +69,12 @@ class _Login extends React.Component<LoginInterface> {
                 Login
               </button>
             </form>
-            <p id="auth-link" className="general-text text-center">
+            {/* TODO ! <p id="auth-link" className="general-text text-center">
               {"Don't have an account yet?"}
               <Link to="signup">
                 <span>Register</span>
               </Link>
-            </p>
+            </p> */}
           </div>
         </div>
       </div>
