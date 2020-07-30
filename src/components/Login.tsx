@@ -1,12 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Field, reduxForm, InjectedFormProps } from "redux-form";
-import { Link } from "react-router-dom";
+import { Link, RouteComponentProps, withRouter } from "react-router-dom";
 import { login as loginAction, LoginDataInterface } from "../actions/login";
 import { renderField } from "./utils";
 import { StoreState } from "../reducers";
 
-export interface LoginInterface extends InjectedFormProps<LoginDataInterface> {
+export interface LoginInterface
+  extends RouteComponentProps,
+    InjectedFormProps<LoginDataInterface> {
   login(props: LoginDataInterface): Function;
   errMsg: {};
 }
@@ -17,8 +19,14 @@ class _Login extends React.Component<LoginInterface> {
   }
 
   // TODO change to proper type
-  onSubmit = (props: LoginDataInterface) => {
-    this.props.login(props);
+  onSubmit = async (props: LoginDataInterface) => {
+    const {
+      login,
+      history: { push },
+    } = this.props;
+
+    await login(props);
+    push("/menu");
   };
 
   render() {
@@ -106,5 +114,5 @@ export const Login = reduxForm({
 })(
   connect(mapStateToProps, {
     login: loginAction,
-  })(_Login)
+  })(withRouter(_Login))
 );

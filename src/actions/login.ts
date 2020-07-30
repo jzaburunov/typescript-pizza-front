@@ -24,16 +24,14 @@ export interface AuthRespInterface {
 export const login = (props: LoginDataInterface): Function => {
   return async (dispatch: Dispatch) => {
     const { email, password } = props;
-    console.log("About to login");
     const res = await axios.post<AuthRespInterface>(host + "auth/login", {
       email,
       password,
     });
 
-    console.log("Login response: ", res);
     const resData = res.data;
-    Auth.authenticateUser(resData);
     if (resData.success) {
+      await Auth.authenticateUser(resData);
       // TODO Check this
       dispatch<LoginAction>({
         type: ActionTypes.authSuccess,
@@ -43,12 +41,13 @@ export const login = (props: LoginDataInterface): Function => {
   };
 };
 
-export const logout = (): Function => {
+export const logout = (push: Function): Function => {
   return async (dispatch: Dispatch) => {
     Auth.deauthenticateUser();
     dispatch<LogoutAction>({
       type: ActionTypes.logout,
     });
+    push("/login");
   };
 };
 
@@ -58,12 +57,9 @@ export class Auth {
     window.localStorage.clear();
   }
 
-  static authenticateUser(json: any) {
+  static async authenticateUser(json: any) {
     window.localStorage.setItem("authToken", json.token);
     window.localStorage.setItem("username", json.user.username);
-    if (json.user.roles && json.user.roles.length > 0) {
-      window.localStorage.setItem("roles", json.user.roles);
-    }
   }
 
   static isUserAuthenticated() {

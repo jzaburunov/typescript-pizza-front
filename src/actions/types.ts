@@ -1,6 +1,6 @@
 export enum ActionTypes {
-  setPizzas,
-  addToCart,
-  authSuccess,
-  logout
-};
+  setPizzas = "setPizzas",
+  addToCart = "addToCart",
+  authSuccess = "authSuccess",
+  logout = "logout",
+}

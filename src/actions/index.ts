@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Dispatch } from "redux";
 import { ActionTypes } from "./types";
+import { LogoutAction, LoginAction } from "./login";
 
 export interface Pizza {
   description: string;
@@ -49,4 +50,4 @@ export const addToCart = (pizza: Pizza): Function => {
   };
 };
 
-export type AppActions = AddToCartAction | FetchPizzasAction;
+export type AppActions = AddToCartAction | FetchPizzasAction | LogoutAction | LoginAction;

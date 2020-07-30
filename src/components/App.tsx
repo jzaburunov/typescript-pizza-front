@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import { BasicProps } from "antd/lib/layout/layout";
 import { Layout, Popover } from "antd";
 import { logout as logoutAction } from "../actions/login";
+import { StoreState } from "../reducers";
 
 const { Content, Sider } = Layout;
 
-interface AppInterface extends BasicProps {
+interface AppInterface extends RouteComponentProps, BasicProps {
   pathname: string;
   sidebar: React.ReactType;
-  logout(): Function;
+  logout(push: Function): Function;
+  authorized: boolean;
 }
 
 const MenuPopover = (props: { logOut?: () => void }) => {
@@ -26,7 +29,14 @@ const MenuPopover = (props: { logOut?: () => void }) => {
 const _App: React.FC<AppInterface> = (props) => {
   const [collapsed, setCollapsed] = useState(false);
   const [visible, setVisible] = useState(false);
-  const { children, pathname, sidebar: SidebarMenu, logout } = props;
+  const {
+    children,
+    pathname,
+    sidebar: SidebarMenu,
+    logout,
+    authorized,
+    history: { push },
+  } = props;
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
@@ -58,7 +68,7 @@ const _App: React.FC<AppInterface> = (props) => {
           </span>
           <div className="app__header__right">
             <Popover
-              content={<MenuPopover logOut={logout} />}
+              content={<MenuPopover logOut={() => logout(push)} />}
               placement="rightBottom"
               trigger="click"
               visible={visible}
@@ -79,6 +89,13 @@ const _App: React.FC<AppInterface> = (props) => {
   );
 };
 
-export const App = connect(null, {
+function mapStateToProps(state: StoreState) {
+  const { session } = state;
+  return {
+    authorized: session,
+  };
+}
+
+export const App = connect(mapStateToProps, {
   logout: logoutAction,
-})(_App);
+})(withRouter(_App));
