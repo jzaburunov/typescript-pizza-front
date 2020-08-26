@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Dispatch } from "redux";
+import jwtDecode from "jwt-decode";
 import { ActionTypes } from "./types";
 
 const host = "http://localhost:4000/";
@@ -19,6 +20,8 @@ export interface LogoutAction {
 
 export interface AuthRespInterface {
   success: boolean;
+  token: string;
+  user: LoginDataInterface;
 }
 
 export const login = (props: LoginDataInterface): Function => {
@@ -31,6 +34,10 @@ export const login = (props: LoginDataInterface): Function => {
 
     const resData = res.data;
     if (resData.success) {
+      const jwtParsed = jwtDecode(resData.token) as {
+        sub: string
+      };
+      localStorage.setItem("user", JSON.stringify(jwtParsed.sub));
       await Auth.authenticateUser(resData);
       // TODO Check this
       dispatch<LoginAction>({

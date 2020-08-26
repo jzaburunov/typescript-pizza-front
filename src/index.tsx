@@ -5,6 +5,7 @@
 // v Login
 // v   logout
 // v   protect routes
+// !  use jwt Bearer header
 //    register
 //  Additionally:
 //   Pagination
