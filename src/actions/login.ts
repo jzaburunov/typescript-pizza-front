@@ -1,9 +1,8 @@
-import axios from "axios";
 import { Dispatch } from "redux";
 import jwtDecode from "jwt-decode";
 import { ActionTypes } from "./types";
-
-const host = "http://localhost:4000/";
+import { ApiRequest } from "../api/ApiRequest";
+import { Auth } from "../services/Auth";
 
 export interface LoginDataInterface {
   email: string;
@@ -27,19 +26,22 @@ export interface AuthRespInterface {
 export const login = (props: LoginDataInterface): Function => {
   return async (dispatch: Dispatch) => {
     const { email, password } = props;
-    const res = await axios.post<AuthRespInterface>(host + "auth/login", {
-      email,
-      password,
-    });
+    const request = new ApiRequest();
+    const res = await request.axiosInstance.post<AuthRespInterface>(
+      "auth/login",
+      {
+        email,
+        password,
+      }
+    );
 
     const resData = res.data;
     if (resData.success) {
       const jwtParsed = jwtDecode(resData.token) as {
-        sub: string
+        sub: string;
       };
       localStorage.setItem("user", JSON.stringify(jwtParsed.sub));
       await Auth.authenticateUser(resData);
-      // TODO Check this
       dispatch<LoginAction>({
         type: ActionTypes.authSuccess,
       });
@@ -57,20 +59,3 @@ export const logout = (push: Function): Function => {
     push("/login");
   };
 };
-
-// TODO fix any type
-export class Auth {
-  static deauthenticateUser() {
-    window.localStorage.clear();
-  }
-
-  static async authenticateUser(json: any) {
-    window.localStorage.setItem("authToken", json.token);
-    window.localStorage.setItem("username", json.user.username);
-  }
-
-  static isUserAuthenticated() {
-    return window.localStorage.getItem("authToken") !== null;
-  }
-}
-// TODO fix any type

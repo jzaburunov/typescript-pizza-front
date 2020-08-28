@@ -1,7 +1,7 @@
-import axios from "axios";
 import { Dispatch } from "redux";
 import { ActionTypes } from "./types";
 import { LogoutAction, LoginAction } from "./login";
+import { ApiRequest } from "../api/ApiRequest";
 
 export interface Pizza {
   description: string;
@@ -24,7 +24,8 @@ export interface FetchPizzasAction {
 
 export const fetchPizzas = (): Function => {
   return async (dispatch: Dispatch) => {
-    const resp = await axios.get<Pizza[]>("http://localhost:4000/pizza/all");
+    const request = new ApiRequest();
+    const resp = await request.axiosInstance.get<Pizza[]>("pizza/all");
 
     dispatch<FetchPizzasAction>({
       type: ActionTypes.setPizzas,
@@ -40,7 +41,7 @@ export interface AddToCartAction {
 
 export const addToCart = (pizza: Pizza): Function => {
   return async (dispatch: Dispatch) => {
-    // use axios
+    // TODO use axios
     const payload = pizza;
     // Dispatch
     dispatch<AddToCartAction>({
@@ -50,4 +51,8 @@ export const addToCart = (pizza: Pizza): Function => {
   };
 };
 
-export type AppActions = AddToCartAction | FetchPizzasAction | LogoutAction | LoginAction;
+export type AppActions =
+  | AddToCartAction
+  | FetchPizzasAction
+  | LogoutAction
+  | LoginAction;

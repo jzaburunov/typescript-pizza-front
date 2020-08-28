@@ -1,6 +1,6 @@
 import React from "react";
 import { Redirect, Route } from "react-router-dom";
-import { Auth } from "../actions/login";
+import { Auth } from "../services/Auth";
 import { BasicProps } from "antd/lib/layout/layout";
 
 interface PrivateRouteInterface extends BasicProps {
